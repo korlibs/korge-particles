@@ -1,4 +1,4 @@
-name: "korge-mymodule"
+name: "korge-particles"
 plugins:
   #- serialization
 dependencies:
