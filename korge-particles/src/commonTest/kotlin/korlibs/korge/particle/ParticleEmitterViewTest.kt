@@ -1,22 +1,19 @@
 package korlibs.korge.particle
 
-import korlibs.time.*
 import korlibs.graphics.log.*
-import korlibs.korge.particle.*
-import korlibs.korge.test.*
-import korlibs.korge.testing.*
-import korlibs.korge.tests.*
-import korlibs.korge.view.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
+import korlibs.korge.tests.*
+import korlibs.korge.view.*
+import korlibs.time.*
 import kotlin.coroutines.*
-import kotlin.random.*
 import kotlin.test.*
 
 class ParticleEmitterViewTest : ViewsForTesting(log = true) {
     override fun filterLogDraw(str: String, kind: AGBaseLog.Kind): Boolean = kind == AGBaseLog.Kind.DRAW
 
-    val particleEmitter = SingleFileMemoryVfs("""
+    val particleEmitter = SingleFileMemoryVfs(
+        """
         <particleEmitterConfig>
           <texture name="texture.png"/>
           <sourcePosition x="300.00" y="300.00"/>
@@ -56,7 +53,8 @@ class ParticleEmitterViewTest : ViewsForTesting(log = true) {
           <rotationEnd value="0.00"/>
           <rotationEndVariance value="0.00"/>
         </particleEmitterConfig>
-    """.trimIndent()).noSuspend { readParticleEmitter() }
+    """.trimIndent()
+    ).noSuspend { readParticleEmitter() }
 
     @Test
     fun testInvalidateRenderer() {
