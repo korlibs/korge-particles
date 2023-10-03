@@ -63,8 +63,8 @@ class ParticleEmitterSimulator(
 
         val angle = randomVariance(emitter.angle, emitter.angleVariance)
         val speed = randomVariance(emitter.speed, emitter.speedVariance).toFloat()
-        particle.velocityX = speed * cosd(angle).toFloat()
-        particle.velocityY = speed * sind(angle).toFloat()
+        particle.velocityX = speed * cosf(angle)
+        particle.velocityY = speed * sinf(angle)
 
         val startRadius = randomVariance(emitter.maxRadius, emitter.maxRadiusVariance).toFloat()
         val endRadius = randomVariance(emitter.minRadius, emitter.minRadiusVariance).toFloat()
@@ -124,9 +124,9 @@ class ParticleEmitterSimulator(
         when (emitter.emitterType) {
             ParticleEmitter.Type.RADIAL -> {
                 particle.emitRotation += particle.emitRotationDelta * elapsedTime.toDouble()
-                particle.emitRadius += (particle.emitRadiusDelta * elapsedTime).toFloat()
-                particle.x = emitter.sourcePosition.x.toFloat() - cosd(particle.emitRotation).toFloat() * particle.emitRadius
-                particle.y = emitter.sourcePosition.y.toFloat() - sind(particle.emitRotation).toFloat() * particle.emitRadius
+                particle.emitRadius += (particle.emitRadiusDelta * elapsedTime)
+                particle.x = emitter.sourcePosition.x.toFloat() - cosf(particle.emitRotation) * particle.emitRadius
+                particle.y = emitter.sourcePosition.y.toFloat() - sinf(particle.emitRotation) * particle.emitRadius
             }
             ParticleEmitter.Type.GRAVITY -> {
                 val distanceX = particle.x - particle.startX

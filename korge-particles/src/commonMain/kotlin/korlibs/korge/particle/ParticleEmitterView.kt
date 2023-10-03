@@ -11,8 +11,7 @@ import korlibs.korge.view.*
 import korlibs.korge.view.fast.*
 import korlibs.korge.view.property.*
 import korlibs.math.geom.*
-import korlibs.time.TimeSpan
-import korlibs.time.milliseconds
+import korlibs.time.*
 import kotlinx.coroutines.*
 import kotlin.random.*
 
@@ -31,7 +30,7 @@ suspend fun Container.attachParticleAndWait(
     x: Double,
     y: Double,
     time: TimeSpan = TimeSpan.NIL,
-    speed: Float = 1f
+    speed: Double = 1.0
 ) {
     val p = particle.create(x, y, time)
     p.speed = speed
@@ -69,12 +68,12 @@ class ParticleEmitterView(
         set(value) {
             emitterPos = value
         }
-    var emitterX: Float
+    var emitterX: Double
         get() = emitterPos.x
         set(value) {
             emitterPos = emitterPos.copy(x = value)
         }
-    var emitterY: Float
+    var emitterY: Double
         get() = emitterPos.y
         set(value) {
             emitterPos = emitterPos.copy(y = value)
@@ -106,7 +105,7 @@ class ParticleEmitterView(
 //                simulator.emitterPos.setTo(x, y)
 //            }
         if (dt > 0.milliseconds) {
-            val g = globalPos / stage!!.scale.toPoint()
+            val g = globalPos / stage!!.scaleXY.toPoint()
             val gx = g.x
             val gy = g.y
 
@@ -217,7 +216,7 @@ class ParticleEmitterView(
         baseForceLoadSourceFile(views, currentVfs, sourceFile)
         emitter = currentVfs["$sourceFile"].readParticleEmitter()
         simulator = ParticleEmitterSimulator(emitter, emitterPos)
-        scaleD = 1.0
+        scale = 1.0
     }
 
     @Suppress("unused")

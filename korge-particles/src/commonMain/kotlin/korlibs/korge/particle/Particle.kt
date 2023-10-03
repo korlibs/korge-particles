@@ -15,7 +15,7 @@ open class ParticleContainer(val max: Int) {
     val data = Buffer.allocDirect(max * PARTICLE_STRIDE * Float.SIZE_BYTES)
     val f32 = data.f32
 
-    var Particle.rotation: Angle get() = rotationRadians.radians; set(value) { rotationRadians = value.radians }
+    var Particle.rotation: Angle get() = rotationRadians.radians; set(value) { rotationRadians = value.radians.toFloat() }
 
     var Particle.x: Float get() = f32[offset + 0]; set(value) { f32[offset + 0] = value }
     var Particle.y: Float get() = f32[offset + 1]; set(value) { f32[offset + 1] = value }
@@ -53,9 +53,9 @@ open class ParticleContainer(val max: Int) {
 
     var Particle.initializedFloat: Float get() = f32[offset + 26]; set(value) { f32[offset + 26] = value }
 
-    var Particle.emitRotation: Angle get() = emitRotationRadians.radians; set(value) { emitRotationRadians = value.radians }
-    var Particle.emitRotationDelta: Angle get() = emitRotationDeltaRadians.radians; set(value) { emitRotationDeltaRadians = value.radians }
-    var Particle.rotationDelta: Angle get() = rotationDeltaRadians.radians; set(value) { rotationDeltaRadians = value.radians }
+    var Particle.emitRotation: Angle get() = emitRotationRadians.radians; set(value) { emitRotationRadians = value.radians.toFloat() }
+    var Particle.emitRotationDelta: Angle get() = emitRotationDeltaRadians.radians; set(value) { emitRotationDeltaRadians = value.radians.toFloat() }
+    var Particle.rotationDelta: Angle get() = rotationDeltaRadians.radians; set(value) { rotationDeltaRadians = value.radians.toFloat() }
 
     val Particle.color: RGBA get() = RGBA.float(colorR, colorG, colorB, colorA)
     val Particle.alive: Boolean get() = this.currentTime >= 0.0 && this.currentTime < this.totalTime
@@ -67,7 +67,7 @@ open class ParticleContainer(val max: Int) {
     private val RGBA.nice get() = this.toString()
     private val Float.nice get() = this.toStringDecimal(1)
     private val Double.nice get() = this.toStringDecimal(1)
-    private val Angle.nice get() = this.degreesD.toStringDecimal(1)
+    private val Angle.nice get() = this.degrees.toStringDecimal(1)
 
     init {
         for (n in 0 until max) {
