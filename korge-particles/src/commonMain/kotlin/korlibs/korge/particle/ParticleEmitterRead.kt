@@ -75,7 +75,7 @@ suspend fun VfsFile.readParticleEmitter(): ParticleEmitter {
             fill(createRadialGradient(32.0, 32.0, 0.0, 32.0, 32.0, 32.0)
                 .addColorStop(0.0, Colors.WHITE)
                 .addColorStop(0.4, Colors.WHITE)
-                .addColorStop(1.0, Colors.TRANSPARENT_WHITE)) { circle(Point(32, 32), 30f) }
+                .addColorStop(1.0, Colors.TRANSPARENT_WHITE)) { circle(Point(32, 32), 30.0) }
         }.slice()
     }
     // After we load the texture, we set textureName to null, so it is not loaded again
